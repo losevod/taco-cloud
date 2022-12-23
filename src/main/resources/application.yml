@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    generate-unique-name: false
+    name: tacocloud
+  security:
+    user:
+      name: kek
+      password: 1
+  data:
+    rest:
+      base-path: /data-api
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    template:
+      default-topic: tacocloud.orders.topic
+    producer:
+      keySerializer: org.springframework.kafka.support.serializer.JsonSerializer
+      valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+logging:
+  level:
+    sia.tacocloud: DEBUG
+
+taco:
+  orders:
+    pageSize: 10
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: tacouser
+    password: tacopassword
+
+logging:
+  level:
+    sia.tacocloud: WARN
